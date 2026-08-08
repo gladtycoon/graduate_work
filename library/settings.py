@@ -1,18 +1,22 @@
 import os
-from datetime import timedelta  # для JWT
+import sys
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Определяем, запущены ли тесты
+IS_TESTING = "test" in sys.argv
+
+if IS_TESTING:
+    load_dotenv(".env.test")
+else:
+    load_dotenv()
+
 SECRET_KEY = os.getenv("SECRET_KEY")
-
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
@@ -22,13 +26,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Third party
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
     "django_filters",
     "drf_yasg",
-    # Local apps
     "books",
     "users",
     "borrow",
@@ -63,7 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "library.wsgi.application"
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -75,48 +76,29 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "users.User"  # подключение кастомной модели пользователя
+AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "Europe/Kaliningrad"
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 STATIC_URL = "static/"
-
-
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
-    },
-}
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    # для регистрации нового пользователя доступ permissions.AllowAny на уровне приложения
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 5,

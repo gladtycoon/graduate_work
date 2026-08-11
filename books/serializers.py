@@ -8,7 +8,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Author
-        fields = ['id', 'last_name', 'first_name', 'middle_name', 'bio', 'birth_date']
+        fields = ["id", "last_name", "first_name", "middle_name", "bio", "birth_date"]
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class BookSerializer(serializers.ModelSerializer):
         # id передается, но пользователь видит не id, а имя автора
         write_only=True,
         # если пользователь при создании книги не указал авторов — создается книга без авторов
-        required=False
+        required=False,
     )
 
     class Meta:

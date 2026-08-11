@@ -20,7 +20,7 @@ class BorrowViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.is_anonymous:
             return BorrowRecord.objects.none()
-        if user.is_staff or getattr(user, 'is_librarian', False):
+        if user.is_staff or getattr(user, "is_librarian", False):
             return BorrowRecord.objects.all()
         return BorrowRecord.objects.filter(user=user)
 

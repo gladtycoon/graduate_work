@@ -37,7 +37,7 @@ class BookAPITestCase(TestCase):
             last_name="Тестов",
             first_name="Тест",
             middle_name="Тестович",
-            birth_date="1990-01-01"
+            birth_date="1990-01-01",
         )
 
         self.book = Book.objects.create(

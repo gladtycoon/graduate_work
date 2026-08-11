@@ -33,15 +33,21 @@ class BookAPITestCase(TestCase):
             username=admin_username, email=admin_email, password=admin_password
         )
 
-        self.author = Author.objects.create(name="Test Author")
+        self.author = Author.objects.create(
+            last_name="Тестов",
+            first_name="Тест",
+            middle_name="Тестович",
+            birth_date="1990-01-01"
+        )
+
         self.book = Book.objects.create(
             title="Test Book",
             isbn="1234567890123",
             genre="FIC",
             year=2024,
             pages=100,
-            total_copies=1,
-            available_copies=1,
+            # total_copies=1,
+            # available_copies=1,
         )
         self.book.authors.add(self.author)
 
@@ -67,8 +73,8 @@ class BookAPITestCase(TestCase):
             "genre": "FIC",
             "year": 2024,
             "pages": 200,
-            "total_copies": 2,
-            "available_copies": 2,
+            # "total_copies": 2,
+            # "available_copies": 2,
             "author_ids": [self.author.id],
         }
         response = self.client.post("/api/books/", data, format="json")
@@ -85,8 +91,8 @@ class BookAPITestCase(TestCase):
             "genre": "FIC",
             "year": 2024,
             "pages": 200,
-            "total_copies": 2,
-            "available_copies": 2,
+            # "total_copies": 2,
+            # "available_copies": 2,
             "author_ids": [self.author.id],
         }
         response = self.client.post("/api/books/", data, format="json")

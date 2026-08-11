@@ -7,7 +7,7 @@
       "last_login": null,
       "is_superuser": true,
       "username": "admin",
-      "first_name": "Admin",
+      "first_name": "Testadmin",
       "last_name": "Adminov",
       "email": "admin@library.ru",
       "is_staff": true,

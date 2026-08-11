@@ -18,7 +18,9 @@ class BorrowViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Обычный пользователь видит только свои выдачи, библиотекарь — все."""
         user = self.request.user
-        if user.is_staff or user.is_librarian:
+        if user.is_anonymous:
+            return BorrowRecord.objects.none()
+        if user.is_staff or getattr(user, 'is_librarian', False):
             return BorrowRecord.objects.all()
         return BorrowRecord.objects.filter(user=user)
 

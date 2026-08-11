@@ -5,7 +5,7 @@ description = "Дипломная работа"
 authors = [{name = "Ivan Sokolskiy"}]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = ["django (==6.0.7)",
                 "djangorestframework (>=3.17.2,<4.0.0)",
                 "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
